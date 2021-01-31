@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Hello</h2>
+    <div id ='list-wrapper'>
+
+    </div>
+    <script>
+        buildlist()
+
+        function buildlist(){
+            var wrapper = document.getElementById('list-wrapper')
+
+            var url = 'http://localhost:8000/api/'
+
+            fetch(url)
+            .then((resp) => resp.json())
+            .then(function(data){
+                console.log('Data:', data)
+
+                var list = data
+                for(var i in list){
+                    var item = `
+                        <div id = "data-row-${i}">
+                            <span class="title"><a href="api/${list[i].slug}">${list[i].title}</a></span>
+                        </div>
+                    `
+                wrapper.innerHTML += item
+                }
+
+            })
+        }
+    </script>
+</body>
+</html>
